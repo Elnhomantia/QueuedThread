@@ -34,7 +34,7 @@ install(TARGETS QueuedThread
 
 install(EXPORT QueuedThreadTargets
     FILE QueuedThreadTargets.cmake
-    NAMESPACE QueuedThread::
+    NAMESPACE Elth::
     DESTINATION lib/cmake/QueuedThread
 )
 
@@ -42,8 +42,8 @@ include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/QueuedThreadConfigVersion.cmake"
-    VERSION v1.0.0
-    COMPATIBILITY SameMajorVersion
+    VERSION 1.0.0
+    COMPATIBILITY AnyNewerVersion
 )
 
 configure_package_config_file(
