@@ -2,7 +2,7 @@
 
 
 
-QueuedThread::QueuedThread() { run(); }
+QueuedThread::QueuedThread() : _thread(std::thread(&QueuedThread::run, this)) {}
 
 QueuedThread::~QueuedThread()
 {
