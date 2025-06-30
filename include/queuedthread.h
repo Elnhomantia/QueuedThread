@@ -13,9 +13,11 @@ public:
     QueuedThread();
     ~QueuedThread();
 
-    template <typename T, std::enable_if<std::is_invocable_r_v<void, T>>>
+    template <typename T>
+    requires std::is_invocable_r_v<void, T>
     void invoke(T&& task);
-    template <typename T, std::enable_if<std::is_invocable_r_v<void, T>>>
+    template <typename T>
+    requires std::is_invocable_r_v<void, T>
     void schedule(T&& task);
 
 private:
