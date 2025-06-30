@@ -18,7 +18,8 @@ QueuedThread::~QueuedThread()
     }
 }
 
-template <typename T, std::enable_if<std::is_invocable_r_v<void, T>>>
+template <typename T>
+requires std::is_invocable_r_v<void, T>
 void QueuedThread::invoke(T&& task)
 {
     {
@@ -28,7 +29,8 @@ void QueuedThread::invoke(T&& task)
     _condVar.notify_one();
 }
 
-template <typename T, std::enable_if<std::is_invocable_r_v<void, T>>>
+template <typename T>
+requires std::is_invocable_r_v<void, T>
 void QueuedThread::schedule(T&& task)
 {
     {
