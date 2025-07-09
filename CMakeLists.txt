@@ -17,12 +17,14 @@ add_library(QueuedThread STATIC ${INCLUDES_FILES} ${SOURCES_FILES})
 
 target_include_directories(QueuedThread PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
+    $<INSTALL_INTERFACE:include/Elth/queuedthread>
 )
 
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
 install(DIRECTORY include/
-        DESTINATION include
-        FILES_MATCHING PATTERN "*.h")
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Elth/queuedthread)
 
 install(TARGETS QueuedThread
     EXPORT QueuedThreadTargets
@@ -37,8 +39,6 @@ install(EXPORT QueuedThreadTargets
     NAMESPACE Elth::
     DESTINATION lib/cmake/QueuedThread
 )
-
-include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/QueuedThreadConfigVersion.cmake"
