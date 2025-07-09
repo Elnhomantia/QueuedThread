@@ -33,6 +33,26 @@ public:
         }
         _condVar.notify_one();
     }
+    template <typename T, typename ...Args>
+    requires std::is_invocable_r_v<void, T, Args...>
+    void invoke(T&& task, Args&&... args)
+    {
+        auto bound_task = [task = std::forward<T>(task),
+                           ... args_capture = std::forward<Args>(args)]() mutable {
+            std::invoke(task, args_capture...);
+        };
+        invoke(bound_task);
+    }
+    template <typename T, typename ...Args>
+    requires std::is_invocable_r_v<void, T, Args...>
+    void schedule(T&& task, Args&&... args)
+    {
+        auto bound_task = [task = std::forward<T>(task),
+                           ... args_capture = std::forward<Args>(args)]() mutable {
+            std::invoke(task, args_capture...);
+        };
+        schedule(bound_task);
+    }
 
 private:
     std::thread _thread;
